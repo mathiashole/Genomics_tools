@@ -1,6 +1,6 @@
 # :bar_chart:     GStat 
 
-
+[![Perl](https://img.shields.io/badge/Perl-blue?style=for-the-badge&logo=perl&logoColor=white&labelColor=101010)](https://www.perl.org)
 
 
 
