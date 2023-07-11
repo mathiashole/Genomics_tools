@@ -1,6 +1,7 @@
 # :bar_chart:     GStat 
 
 [![Perl](https://img.shields.io/badge/Perl-blue?style=for-the-badge&logo=perl&logoColor=white&labelColor=101010)](https://www.perl.org)
+[![r](https://img.shields.io/badge/r-#276DC3?style=for-the-badge&logo=perl&logoColor=white&labelColor=101010)](https://www.r-project.org/about.html)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mathiashole/genome_statistics?style=for-the-badge&labelColor=101010&color=white)
 
 
