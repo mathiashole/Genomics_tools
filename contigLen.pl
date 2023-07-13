@@ -31,20 +31,8 @@ sub calculate_contig_lengths {
 my $fasta_file = shift;
 my @contig_lengths = calculate_contig_lengths($fasta_file);
 
-#print "Contig id\tContig length\n";
-#foreach my $contig (@contig_lengths) {
-#    my ($name, $length) = @$contig;
-#    print "$name\t$length\n";
-#}
-
-my $contigResult = "Contig id\tContig length\n";  # Variable to store the contigResult
+print "Contig id\tContig length\n";
 foreach my $contig (@contig_lengths) {
     my ($name, $length) = @$contig;
-    $contigResult .= "$name\t$length\n";  # Concatenate each result line to the $contigResult variable
+    print "$name\t$length\n";
 }
-
-# R program from Perl
-my $r_script = "lenbyc.R";
-
-# Run R script from Perl
-system("Rscript $r_script $contigResult");
