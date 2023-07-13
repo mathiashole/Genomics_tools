@@ -7,10 +7,6 @@ if (length(args) != 1) {
 }
 
 
-#library(tidyverse)
-#library(tidytext)
-#library(dplyr)
-
 ##library to use________________________________________________________________
 packages <- c("ggplot2")
 
@@ -26,9 +22,6 @@ for (package in packages) {
     library(package, character.only = TRUE)
   }
 }
-
-#library(tidyverse)
-#library(ggplot2)
 
 #setwd("/home/usuario/acca/data_base/")
 
