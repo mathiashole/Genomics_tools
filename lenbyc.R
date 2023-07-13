@@ -49,17 +49,21 @@ contig <- read.table(args[1], #"lentgh_of_contig_acca.txt"
 
 n_contig <- length(contig$Contig.id)
 n_write <- paste("Total nº of contigs = ", n_contig)
-n_binwidth <- round(mean(contig$Contig.length))/10^6
+n_binwidth <- round(mean(contig$Contig.length))
+#n_maxx <- max(contig$Contig.length)
 
-length <- ggplot(contig, aes(x= Contig.length/10^6, fill= Contig.length)) + 
+length <- ggplot(contig, aes(x= Contig.length, fill= Contig.length)) + 
   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
   #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
   theme(legend.position="none",
         plot.title = element_text(size=11), 
         panel.background = element_rect(fill = "white",
                                         colour ="grey50")) +
-  labs(y = n_write , x = "Total length of contig (mb)") 
+  labs(y = n_write , x = "Total length of contig (mb)")
 
 
-ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(contig$Contig.length))
+test_ks <- ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(contig$Contig.length))
+print(test_ks)
 
+# Save plot in file
+ggsave(filename = "contig_plot.pdf", plot = p, width = 8.27, height = 8.27)
