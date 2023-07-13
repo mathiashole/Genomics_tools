@@ -61,7 +61,7 @@ length <- ggplot(contig, aes(x= Contig.length, fill= Contig.length)) +
                                         colour ="grey50")) +
   labs(y = n_write , x = "Total length of contig (mb)")
 
-
+# Make test Kolmogórov-Smirnov
 test_ks <- ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(contig$Contig.length))
 print(test_ks)
 
