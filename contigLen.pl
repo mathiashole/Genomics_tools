@@ -50,7 +50,7 @@ foreach my $contig (@contig_lengths) {
 
 # Save the output to a temporary file
 my $output_file = 'output.txt';
-open(my $fh, '>', $output_file) or die "No se pudo abrir el archivo: $!";
+open(my $fh, '>', $output_file) or die "Could not open the file: $!";
 print $fh $output;
 close($fh);
 
