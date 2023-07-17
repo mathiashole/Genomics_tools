@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use strict;
-
 use FindBin qw($Bin);
 
 sub calculate_contig_lengths {
