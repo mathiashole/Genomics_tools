@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+args <- commandArgs(trailingOnly = TRUE)
+
+print(args)
 
 # Verify that the necessary arguments have been specified.
 if (length(args) != 1) {
@@ -45,7 +48,7 @@ n_write <- paste("Total nº of contigs = ", n_contig)
 n_binwidth <- round(mean(contig$Contig.length))
 #n_maxx <- max(contig$Contig.length)
 
-length <- ggplot(contig, aes(x= Contig.length, fill= Contig.length)) + 
+lengthContig <- ggplot(contig, aes(x= Contig.length, fill= Contig.length)) + 
   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
   #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
   theme(legend.position="none",
@@ -59,4 +62,4 @@ test_ks <- ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(c
 print(test_ks)
 
 # Save plot in file
-ggsave(filename = "contig_plot.pdf", plot = p, width = 8.27, height = 8.27)
+ggsave(filename = "contig_plot.pdf", plot = lengthContig, width = 8.27, height = 8.27)
