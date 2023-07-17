@@ -2,11 +2,13 @@
 
 args <- commandArgs(trailingOnly = TRUE)
 
-print(args)
+#print(args)
 
 # Verify that the necessary arguments have been specified.
 if (length(args) != 1) {
-  stop("Use program: length_of_contig.txt")
+  stop("Use program: output.txt.\nCheck input fasta file")
+} else {
+  print(args)
 }
 
 
@@ -63,3 +65,6 @@ print(test_ks)
 
 # Save plot in file
 ggsave(filename = "contig_plot.pdf", plot = lengthContig, width = 8.27, height = 8.27)
+
+# show success message on command line
+cat("\nSuccessfully saved the file", filename, "\n")
