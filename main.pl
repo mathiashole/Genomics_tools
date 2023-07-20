@@ -23,7 +23,7 @@ sub show_version {
     print "GStat v0.0.1\n";
 }
 
-# Manejo de argumentos de línea de comandos
+# Handling command line arguments
 if (scalar(@ARGV) == 0) {
     show_help();
 } elsif ($ARGV[0] eq '-h' || $ARGV[0] eq '--help') {
