@@ -7,12 +7,12 @@ sub show_help {
     print <<'HELP';
 Use: GStat [OPTIONS]
 
-Opciones disponibles:
+ Opciones disponibles:
     -h, --help     Show this help.
     -v, --version  Show the version of the program.
     # Missing options
 
-Examples:
+ Examples:
     main.pl -h
     main.pl -v
 HELP
