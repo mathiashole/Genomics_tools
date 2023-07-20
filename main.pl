@@ -19,17 +19,17 @@ HELP
 }
 
 # Función para mostrar la versión del programa
-sub mostrar_version {
-    print "Nombre del programa v1.0\n";
+sub show_version {
+    print "GStat v0.0.1\n";
 }
 
 # Manejo de argumentos de línea de comandos
 if (scalar(@ARGV) == 0) {
-    mostrar_ayuda();
+    show_help();
 } elsif ($ARGV[0] eq '-h' || $ARGV[0] eq '--help') {
-    mostrar_ayuda();
+    show_help();
 } elsif ($ARGV[0] eq '-v' || $ARGV[0] eq '--version') {
-    mostrar_version();
+    show_version();
 } else {
-    print "Opción desconocida. Usa '-h' o '--help' para ver la ayuda.\n";
+    print "Unknown option. Use '-h' or '--help' to display help.\n";
 }
