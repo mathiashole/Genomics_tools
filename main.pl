@@ -18,7 +18,7 @@ Examples:
 HELP
 }
 
-# Función para mostrar la versión del programa
+# Function to show the version of the program
 sub show_version {
     print "GStat v0.0.1\n";
 }
