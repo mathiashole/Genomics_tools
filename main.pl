@@ -63,7 +63,7 @@ if (scalar(@ARGV) == 0) {
     # Run the perl command
     system($comando_length);
 
-} elsif ($ARGV[0] eq '-n50') {
+} elsif ($ARGV[0] eq '-n50' || $ARGV[0] eq '--n50') {
 
     # Verify that a second argument is supplied
     die "Error: Missing FASTA file. Usage: perl main.pl -n50 <fasta_file>\n" unless @ARGV == 2;
