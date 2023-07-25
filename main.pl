@@ -11,7 +11,8 @@ Use: GStat [OPTIONS]
  Opciones disponibles:
     -h, --help     Show this help.
     -v, --version  Show the version of the program.
-    -l, --length   Show and save lengths of contigs
+    -l, --length   Show and save lengths of contigs.
+    -n50, --n50    Show N50 and L50 of genome.
     # Missing options
 
  Examples:
@@ -95,5 +96,5 @@ if (scalar(@ARGV) == 0) {
 } else {
 
     print "Unknown option. Use '-h' or '--help' to display help.\n";
-    
+
 }
