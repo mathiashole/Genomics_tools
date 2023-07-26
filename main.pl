@@ -13,8 +13,6 @@ Use: GStat [OPTIONS]
     -v, --version  Show the version of the program.
     -l, --length   Show and save lengths of contigs.
     -n50, --n50    Show N50 and L50 of genome.
-    -n80, --n80    Show N80 and L80 of genome.
-    -n90, --n90    Show N50 and L90 of genome.
     # Missing options
 
  Examples:
