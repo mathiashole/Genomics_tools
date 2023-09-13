@@ -6,35 +6,6 @@ use FindBin qw($Bin);
 my @contig_data;
 my $contig;
 
-# sub calculate_contig_lengths_gc {
-#     my $fasta_file = shift;
-#     open(my $fh, "<", $fasta_file) or die "Error\tCannot open $fasta_file: $!\n";
-#     my @contig_data;
-#     my $current_name = "";
-#     my $current_sequence = "";
-#     my $sequence_length = 0;
-#     while (my $line = <$fh>) {
-#         chomp $line;
-#         if ($line =~ /^>/) {
-#             if ($current_name ne "") {
-#                 my $gc_sequence = calculate_gc_percentage($current_sequence);
-#                 push @contig_data, [$current_name, $sequence_length, $gc_percentage];
-#                 $current_sequence = 0;
-#             }
-#             $current_name = $line;
-#             $current_name =~ s/^>//;  # Remove the leading ">"
-#         } else {
-#             $current_sequence .= $line;
-#             $current_sequence += length($line);
-#         }
-#     }
-#     if ($current_name ne "") {
-#         my $gc_percentage = calculate_gc_percentage($current_sequence);
-#         push @contig_data, [$current_name, $sequence_length, $gc_percentage];
-#     }
-#     close $fh;
-#     return @contig_data;
-# }
 sub calculate_contig_lengths_gc {
     my $fasta_file = shift;
     open(my $fh, "<", $fasta_file) or die "Error\tCannot open $fasta_file: $!\n";
@@ -77,12 +48,6 @@ sub calculate_gc_percentage {
 
 my $fasta_file = shift;
 my @contig_lengths = calculate_contig_lengths_gc("$fasta_file");
-
-# print "Contig id\tContig length\n";
-# foreach my $data (@contig_data) {
-#    my ($contig_name, $contig_length, $gc_percentage) = @$contig;
-#    print "$contig_name\t$contig_length\t$gc_percentage\n";
-# }
 
 # Initialize a variable to store the output
 my $output = "Contig id\tContig length\n";
