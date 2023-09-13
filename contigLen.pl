@@ -6,37 +6,49 @@ use FindBin qw($Bin);
 sub calculate_contig_lengths {
     my $fasta_file = shift;
     open(my $fh, "<", $fasta_file) or die "Error\tCannot open $fasta_file: $!\n";
-    my @lengths;
+    my @contig_data;
     my $current_name = "";
+    my $current_sequence = "";
     my $sequence_length = 0;
     while (my $line = <$fh>) {
         chomp $line;
         if ($line =~ /^>/) {
             if ($current_name ne "") {
-                push @lengths, [$current_name, $sequence_length];
-                $sequence_length = 0;
+                my $gc_sequence = calculate_gc_percentage($current_sequence);
+                push @contig_data, [$current_name, $sequence_length, $gc_percentage];
+                $current_sequence = 0;
             }
             $current_name = $line;
             $current_name =~ s/^>//;  # Remove the leading ">"
         } else {
-            $sequence_length += length($line);
+            $current_sequence .= $line;
+            $current_sequence += length($line);
         }
     }
     if ($current_name ne "") {
-        push @lengths, [$current_name, $sequence_length];
+        my $gc_percentage = calculate_gc_percentage($current_sequence);
+        push @contig_data, [$current_name, $sequence_length, $gc_percentage];
     }
     close $fh;
-    return @lengths;
+    return @contig_data;
+}
+
+sub calculate_gc_percentage {
+    my $sequence = shift;
+    my $gc_count = ($sequence =~ tr/GCgc/GCgc/);
+    my $sequence_length = length($sequence);
+    my $gc_percentage = ($gc_count / $sequence_length) * 100;
+    return $gc_percentage;
 }
 
 my $fasta_file = shift;
 my @contig_lengths = calculate_contig_lengths($fasta_file);
 
-#print "Contig id\tContig length\n";
-#foreach my $contig (@contig_lengths) {
-#    my ($name, $length) = @$contig;
-#    print "$name\t$length\n";
-#}
+print "Contig id\tContig length\n";
+foreach my $contig (@contig_lengths) {
+   my ($name, $length) = @$contig;
+   print "$name\t$length\n";
+}
 
 # Initialize a variable to store the output
 my $output = "Contig id\tContig length\n";
