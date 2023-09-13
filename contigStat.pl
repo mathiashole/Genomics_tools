@@ -50,7 +50,7 @@ my $fasta_file = shift;
 my @contig_lengths = calculate_contig_lengths_gc("$fasta_file");
 
 # Initialize a variable to store the output
-my $output = "Contig id\tContig length\n";
+my $output = "id\tlength\tGC\n";
 
 # Construir la salida en formato de tabla
 foreach my $contig (@contig_lengths) {
