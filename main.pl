@@ -2,6 +2,8 @@
 
 use strict;
 use FindBin qw($Bin);
+use File::Basename;
+
 
 # Function to show help
 sub show_help {
@@ -73,22 +75,16 @@ if (scalar(@ARGV) == 0) {
 
     # Verify that the file exists
     die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file; # -e chack for file existence
-
+    print "$fasta_file";
     # $fasta_file path of file
     # Verify that the file has a .fasta or .fa extension
     my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/); # \. = dot in file name. [^.]* = any sequence followed by a dot
-    
-    # fileparse() parse the text and save it in a list of variables
-    #    $file_name = sample
-    #    $file_path = /ruta/del/archivo/fasta/
-    #    $file_ext = .fasta
-    die "Error: File '$fasta_file' is not in FASTA format.\n" unless $file_ext =~ /^\.fasta|\.fa$/i;
 
     # Construct the path to the perl script file
     my $script_n50 = "$Bin/GStat.pl";
 
     # Command in perl to be executed
-    my $comando_n50 = "perl $script_n50 \"$fasta_file\\";
+    my $comando_n50 = "perl $script_n50 \"$fasta_file\"";
 
     # Run the perl command
     system($comando_n50);
