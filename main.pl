@@ -60,7 +60,7 @@ if (scalar(@ARGV) == 0) {
     my $script_length = "$Bin/contigLen.pl";
 
     # Command in perl to be executed
-    my $comando_length = "perl $script_length \"$fasta_file\\";
+    my $comando_length = "perl $script_length \"$fasta_file\"";
 
     # Run the perl command
     system($comando_length);
