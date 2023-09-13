@@ -5,7 +5,7 @@ use FindBin qw($Bin);
 
 sub calculate_contig_lengths {
     my $fasta_file = shift;
-    open(my $fh, "<", $fasta_file) or die "Cannot open $fasta_file: $!";
+    open(my $fh, "<", $fasta_file) or die "Error\tCannot open $fasta_file: $!\n";
     my @lengths;
     my $current_name = "";
     my $sequence_length = 0;
