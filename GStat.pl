@@ -46,6 +46,6 @@ if ($sequence_length > 0) {
 close $fh;
 
 my ($n50, $l50, $total_length, $num_contigs) = calculate_n50_l50(@lengths);
-print "length\tcontigs\tN50\tL50\n";
+print "\n\nlength\tcontigs\tN50\tL50\n";
 print "$total_length\t$num_contigs\t$n50\t$l50\n";
 
