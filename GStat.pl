@@ -2,28 +2,63 @@
 
 use strict;
 
-sub calculate_n50_l50 {
-    my @lengths = @_;
-    my @sorted_lengths = sort { $b <=> $a } @lengths;
+# sub calculate_n50_l50 {
+#     my @lengths = @_;
+#     my @sorted_lengths = sort { $b <=> $a } @lengths;
+#     my $total_length = 0;
+#     foreach my $length (@sorted_lengths) {
+#         $total_length += $length;
+#     }
+#     my $half_length = $total_length / 2;
+#     my $accumulated_length = 0;
+#     my $n50 = 0;
+#     my $l50 = 0;
+#     foreach my $length (@sorted_lengths) {
+#         $accumulated_length += $length;
+#         if ($accumulated_length >= $half_length) {
+#             $n50 = $length;
+#             $l50 = scalar(@sorted_lengths) - $l50 + 1;
+#             last;
+#         }
+#         $l50++;
+#     }
+#     return ($n50, $l50, $total_length, scalar(@lengths));
+# }
+
+sub calculate_N_L {
+    my @sorted_lengths = @_;
     my $total_length = 0;
     foreach my $length (@sorted_lengths) {
         $total_length += $length;
     }
+    
     my $half_length = $total_length / 2;
+    my $ninety_percent_length = $total_length * 0.9;
+    
+    my ($n50, $l50, $n90, $l90) = (0, 0, 0, 0);
     my $accumulated_length = 0;
-    my $n50 = 0;
-    my $l50 = 0;
+    my $accumulated_length_90 = 0;
+    my $count = 0; # Contador de longitudes
+    
     foreach my $length (@sorted_lengths) {
         $accumulated_length += $length;
-        if ($accumulated_length >= $half_length) {
+        $accumulated_length_90 += $length;
+        $count++;
+        
+        if ($accumulated_length >= $half_length && $n50 == 0) {
             $n50 = $length;
-            $l50 = scalar(@sorted_lengths) - $l50 + 1;
-            last;
+            $l50 = $count;
         }
-        $l50++;
+        
+        if ($accumulated_length_90 >= $ninety_percent_length && $n90 == 0) {
+            $n90 = $length;
+            $l90 = $count;
+        }
     }
-    return ($n50, $l50, $total_length, scalar(@lengths));
+    
+    return ($n50, $l50, $n90, $l90, $total_length, $count);
 }
+
 
 my $fasta_file = shift;
 open(my $fh, "<", $fasta_file) or die "Cannot open $fasta_file: $!";
@@ -45,7 +80,7 @@ if ($sequence_length > 0) {
 }
 close $fh;
 
-my ($n50, $l50, $total_length, $num_contigs) = calculate_n50_l50(@lengths);
-print "\n\ntotal contig\ttotal length\tN50\tL50";
-print "\n$num_contigs\t$total_length\t$n50\t$l50\n";
+my ($n50, $l50, $n90, $l90, $total_length, $num_contigs) = calculate_N_L(@lengths);
+print "\n\ncontig\tlength\tN50\tL50\tN90\tL90";
+print "\n$num_contigs\t$total_length\t$n50\t$l50\t$n90\t$l90\n";
 
