@@ -16,6 +16,8 @@ sub calculate_N_L {
     
     my ($n50, $l50, $n90, $l90) = (0, 0, 0, 0);
     my $accumulated_length = 0;
+    my $accumulated_length_60 = 0;
+    my $accumulated_length_70 = 0;
     my $accumulated_length_90 = 0;
     my $count = 0; # Contador de longitudes
     
