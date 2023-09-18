@@ -67,30 +67,44 @@ if (scalar(@ARGV) == 0) {
 
 } elsif ($ARGV[0] eq '-n50' || $ARGV[0] eq '--n50') {
 
-    # Verify that a second argument is supplied
-    die "Error: Missing FASTA file. Usage: perl main.pl -n50 <fasta_file>\n" unless @ARGV == 2;
-
-    # Get the name of the FASTA file given as an argument
-    my $fasta_file = $ARGV[1];
-
-    # Verify that the file exists
-    die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file; # -e chack for file existence
-    print "$fasta_file";
-    # $fasta_file path of file
-    # Verify that the file has a .fasta or .fa extension
-    my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/); # \. = dot in file name. [^.]* = any sequence followed by a dot
-
-    # Construct the path to the perl script file
-    my $script_n50 = "$Bin/GStat.pl";
-
-    # Command in perl to be executed
-    my $comando_n50 = "perl $script_n50 \"$fasta_file\"";
-
-    # Run the perl command
-    system($comando_n50);
+    calculate_stats_for_files(@ARGV);
 
 } else {
 
     print "Unknown option. Use '-h' or '--help' to display help.\n";
 
+}
+
+sub calculate_stats_for_files {
+    my @args = @_;
+
+    my @fasta_files;
+    my $option;
+
+    while (@args) {
+        my $arg = shift @args;
+        if ($arg eq "-n50") {
+            $option = "n50";
+        } else {
+            push @fasta_files, $arg;
+        }
+    }
+
+    foreach my $fasta_file (@fasta_files) {
+        # Verify that the file exists
+        die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file;
+
+        # Verify that the file has a .fasta or .fa extension
+        my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/);
+        die "Error: File '$fasta_file' is not a FASTA file.\n" unless $file_ext =~ /\.fasta$|\.fa$/i;
+
+        # Construct the path to the perl script file
+        my $script_n50 = "$Bin/GStat.pl";
+
+        # Command in perl to be executed
+        my $comando_n50 = "perl $script_n50 \"$fasta_file\"";
+
+        # Run the perl command
+        system($comando_n50);
+    }
 }
