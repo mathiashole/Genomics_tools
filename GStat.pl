@@ -2,29 +2,6 @@
 
 use strict;
 
-# sub calculate_n50_l50 {
-#     my @lengths = @_;
-#     my @sorted_lengths = sort { $b <=> $a } @lengths;
-#     my $total_length = 0;
-#     foreach my $length (@sorted_lengths) {
-#         $total_length += $length;
-#     }
-#     my $half_length = $total_length / 2;
-#     my $accumulated_length = 0;
-#     my $n50 = 0;
-#     my $l50 = 0;
-#     foreach my $length (@sorted_lengths) {
-#         $accumulated_length += $length;
-#         if ($accumulated_length >= $half_length) {
-#             $n50 = $length;
-#             $l50 = scalar(@sorted_lengths) - $l50 + 1;
-#             last;
-#         }
-#         $l50++;
-#     }
-#     return ($n50, $l50, $total_length, scalar(@lengths));
-# }
-
 sub calculate_N_L {
     my @sorted_lengths = @_;
     my $total_length = 0;
