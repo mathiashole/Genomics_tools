@@ -57,7 +57,7 @@ if (scalar(@ARGV) == 0) {
     die "Error: File '$fasta_file' is not in FASTA format.\n" unless $file_ext =~ /^\.fasta|\.fa$/i;
 
     # Construct the path to the perl script file
-    my $script_length = "$Bin/contigLen.pl";
+    my $script_length = "$Bin/contigStat.pl";
 
     # Command in perl to be executed
     my $comando_length = "perl $script_length \"$fasta_file\"";
