@@ -10,6 +10,8 @@ sub calculate_N_L {
     }
     
     my $half_length = $total_length / 2;
+    my $sixty_percent_length = $total_length * 0.6;
+    my $seventy_percent_length = $total_length * 0.7;
     my $ninety_percent_length = $total_length * 0.9;
     
     my ($n50, $l50, $n90, $l90) = (0, 0, 0, 0);
