@@ -50,13 +50,23 @@ n_write <- paste("Total nº of contigs = ", n_contig)
 n_binwidth <- round(mean(contig$length))
 #n_maxx <- max(contig$Contig.length)
 
-ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
+lengthContig <- ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
   geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
   geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
-  geom_point(position = position_jitterdodge(seed = 1, dodge.width = 0.9)) +
+  #geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.9), alpha = 0.6, size = 1) +  # Ajusta la posición de los puntos
   scale_fill_brewer(palette = "Set1", name = "Tipo") +
   theme_minimal()+
-  labs(x = n_write , y = "Total length of contig (pb)")
+  theme(legend.position = "none")+
+  labs(x = n_write , y = "Length of contig (pb)")
+
+gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
+  geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
+  geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
+  #geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.9), alpha = 0.6, size = 1) +  # Ajusta la posición de los puntos
+  scale_fill_brewer(palette = "Set1", name = "Tipo") +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(x = n_write , y = "GC of contig (pb)")
 
 # lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
 #   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
@@ -68,11 +78,15 @@ ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
 #   labs(y = n_write , x = "Total length of contig (pb)")
 
 # Make test Kolmogórov-Smirnov
-test_ks <- ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(contig$Contig.length))
+test_ks <- ks.test(contig$length, pnorm, mean(contig$length), sd(contig$length))
 print(test_ks)
+test_ks_gc <- ks.test(contig$GC, pnorm, mean(contig$GC), sd(contig$GC))
+print(test_ks_gc)
+
+gcLength<- grid.arrange(lengthContig, gcContig, nrow=1, ncol=2)
 
 # Save plot in file
-ggsave(filename = "contig_plot.pdf", plot = lengthContig, width = 8.27, height = 8.27)
+ggsave(filename = "contig_plot.pdf", plot = gcLength, width = 8.27, height = 8.27)
 
 # show success message on command line
 cat("\nSuccessfully saved the file", filename, "\n")
