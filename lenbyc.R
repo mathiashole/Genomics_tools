@@ -28,11 +28,11 @@ for (package in packages) {
   }
 }
 
-#setwd("/home/usuario/acca/data_base/")
+#setwd("/home/usuario/PERL/NLfifty/")
 
 ##Read our data_________________________________________________________________
 
-contig <- read.table(args[1], #"lentgh_of_contig_acca.txt"
+contig <- read.table(args[1], #"output.txt
                    sep = "\t",
                    stringsAsFactors = T,
                    header = T)
