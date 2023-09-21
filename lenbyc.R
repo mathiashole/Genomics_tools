@@ -13,7 +13,7 @@ if (length(args) != 1) {
 
 
 ##library to use________________________________________________________________
-packages <- c("ggplot2")
+packages <- c("ggplot2","gridExtra")
 
 # Check if the packages are installed
 
@@ -45,19 +45,27 @@ contig <- read.table(args[1], #"output.txt
 
 ##Histogram length______________________________________________________________
 
-n_contig <- length(contig$Contig.id)
+n_contig <- length(contig$length)
 n_write <- paste("Total nº of contigs = ", n_contig)
-n_binwidth <- round(mean(contig$Contig.length))
+n_binwidth <- round(mean(contig$length))
 #n_maxx <- max(contig$Contig.length)
 
-lengthContig <- ggplot(contig, aes(x= Contig.length, fill= Contig.length)) + 
-  geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
-  #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
-  theme(legend.position="none",
-        plot.title = element_text(size=11), 
-        panel.background = element_rect(fill = "white",
-                                        colour ="grey50")) +
-  labs(y = n_write , x = "Total length of contig (pb)")
+ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
+  geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
+  geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
+  geom_point(position = position_jitterdodge(seed = 1, dodge.width = 0.9)) +
+  scale_fill_brewer(palette = "Set1", name = "Tipo") +
+  theme_minimal()+
+  labs(x = n_write , y = "Total length of contig (pb)")
+
+# lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
+#   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
+#   #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
+#   theme(legend.position="none",
+#         plot.title = element_text(size=11), 
+#         panel.background = element_rect(fill = "white",
+#                                         colour ="grey50")) +
+#   labs(y = n_write , x = "Total length of contig (pb)")
 
 # Make test Kolmogórov-Smirnov
 test_ks <- ks.test(contig$Contig.length, pnorm, mean(contig$Contig.length), sd(contig$Contig.length))
