@@ -78,8 +78,10 @@ gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
 #   labs(y = n_write , x = "Total length of contig (pb)")
 
 # Make test Kolmogórov-Smirnov
+cat("\n\tLength distribution:\n")
 test_ks <- ks.test(contig$length, pnorm, mean(contig$length), sd(contig$length))
 print(test_ks)
+cat("\n\tGC distribution:\n")
 test_ks_gc <- ks.test(contig$GC, pnorm, mean(contig$GC), sd(contig$GC))
 print(test_ks_gc)
 
@@ -89,4 +91,4 @@ gcLength<- grid.arrange(lengthContig, gcContig, nrow=1, ncol=2)
 ggsave(filename = "contig_plot.pdf", plot = gcLength, width = 8.27, height = 8.27)
 
 # show success message on command line
-cat("\nSuccessfully saved the file", filename, "\n")
+cat("\nSuccessfully saved the file", "contig_plot.pdf", "\n")
