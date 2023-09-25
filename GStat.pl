@@ -63,7 +63,7 @@ sub process_fasta_file {
 
 sub main {
     my @fasta_files = @ARGV;
-
+    print "HOLA";
     # Verificar si se proporcionaron archivos FASTA
     if (@fasta_files == 0) {
         die("Uso: $0 <archivo1.fasta> <archivo2.fasta> ...\n");
@@ -76,7 +76,7 @@ sub main {
         my $genome_data = process_fasta_file($fasta_file);
         push @genomes_data, $genome_data;
     }
-
+    
     # Abre el archivo de salida en modo de agregado para no reemplazar los datos anteriores
     open(my $output_fh, ">", "output_stat_genome.txt") or die "Cannot open output file: $!";
 
