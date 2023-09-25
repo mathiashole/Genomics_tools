@@ -82,12 +82,11 @@ sub main {
 
     # Imprime encabezados de columna en el archivo de salida si es la primera vez
     if (-s "output_stat_genome.txt" == 0) {
-        print $output_fh "Genoma\tContigs\tTotal_Length\tN50\tL50\tN60\tL60\tN70\tL70\tN90\tL90\n";
+        print $output_fh "genome\tcontigs\ttotal_length\tN50\tL50\tN60\tL60\tN70\tL70\tN90\tL90\tminimum length\t maximum length\n";
     }
 
     # Escribe los resultados en el archivo de salida
     foreach my $genome (@genomes_data) {
-        #printf($output_fh "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
         printf($output_fh "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 
             $genome->{fasta_file},
@@ -106,10 +105,9 @@ sub main {
         );
     }
 
-    # Cierra el archivo de salida
     close $output_fh;
 
-    print "Resultados acumulados en 'output_stat_genome.txt'\n";
+    print "Accumulated results in 'output_stat_genome.txt'\n";
 }
 
 
@@ -130,7 +128,7 @@ sub calculate_N_L {
     my $accumulated_length_60 = 0;
     my $accumulated_length_70 = 0;
     my $accumulated_length_90 = 0;
-    my $count = 0; # Contador de longitudes
+    my $count = 0;
     
     foreach my $length (@sorted_lengths) {
         $accumulated_length += $length;
