@@ -12,11 +12,20 @@ sub process_fasta_file {
     open(my $fh, "<", $fasta_file) or die "Cannot open $fasta_file: $!";
     my @lengths;
     my $sequence_length = 0;
+    my $min_length = undef;
+    my $max_length = undef;
     while (my $line = <$fh>) {
         chomp $line;
         if ($line =~ /^>/) {
             if ($sequence_length > 0) {
                 push @lengths, $sequence_length;
+                #$sequence_length = 0;
+                if (!defined $min_length || $sequence_length < $min_length) {
+                    $min_length = $sequence_length;
+                }
+                if (!defined $max_length || $sequence_length > $max_length) {
+                    $max_length = $sequence_length;
+                }
                 $sequence_length = 0;
             }
         } else {
@@ -25,6 +34,12 @@ sub process_fasta_file {
     }
     if ($sequence_length > 0) {
         push @lengths, $sequence_length;
+        if (!defined $min_length || $sequence_length < $min_length) {
+            $min_length = $sequence_length;
+        }
+        if (!defined $max_length || $sequence_length > $max_length) {
+            $max_length = $sequence_length;
+        }
     }
     close $fh;
 
@@ -41,6 +56,8 @@ sub process_fasta_file {
         l70 => $l70,
         n90 => $n90,
         l90 => $l90,
+        min_length => $min_length,
+        max_length => $max_length,
     };
 }
 
@@ -61,7 +78,7 @@ sub main {
     }
 
     # Abre el archivo de salida en modo de agregado para no reemplazar los datos anteriores
-    open(my $output_fh, ">>", "output_stat_genome.txt") or die "Cannot open output file: $!";
+    open(my $output_fh, ">", "output_stat_genome.txt") or die "Cannot open output file: $!";
 
     # Imprime encabezados de columna en el archivo de salida si es la primera vez
     if (-s "output_stat_genome.txt" == 0) {
@@ -70,7 +87,9 @@ sub main {
 
     # Escribe los resultados en el archivo de salida
     foreach my $genome (@genomes_data) {
-        printf($output_fh "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+        #printf($output_fh "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+        printf($output_fh "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+
             $genome->{fasta_file},
             $genome->{num_contigs},
             $genome->{total_length},
@@ -81,7 +100,9 @@ sub main {
             $genome->{n70},
             $genome->{l70},
             $genome->{n90},
-            $genome->{l90}
+            $genome->{l90},
+            $genome->{min_length},
+            $genome->{max_length} 
         );
     }
 
