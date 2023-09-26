@@ -46,7 +46,7 @@ contig <- read.table(args[1], #"output.txt
 ##Histogram length______________________________________________________________
 
 n_contig <- length(contig$length)
-n_write <- paste("Total nº of contigs = ", n_contig)
+n_write <- paste("nº total contigs = ", n_contig)
 n_binwidth <- round(mean(contig$length))
 #n_maxx <- max(contig$Contig.length)
 
@@ -68,15 +68,16 @@ gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
   theme(legend.position = "none")+
   labs(x = n_write , y = "GC of contig (pb)")
 
-# lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
-#   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
-#   #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
-#   theme(legend.position="none",
-#         plot.title = element_text(size=11), 
-#         panel.background = element_rect(fill = "white",
-#                                         colour ="grey50")) +
-#   labs(y = n_write , x = "Total length of contig (pb)")
-
+ lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
+   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
+   #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
+   theme(legend.position="none",
+         plot.title = element_text(size=11), 
+         panel.background = element_rect(fill = "white",
+                                         colour ="grey50")) +
+   labs(y = n_write , x = "Largo de contigs (mpb)")+
+   scale_x_continuous(labels = scales::comma_format(scale = 1e-6))
+ 
 # Make test Kolmogórov-Smirnov
 cat("\n\tLength distribution:\n")
 test_ks <- ks.test(contig$length, pnorm, mean(contig$length), sd(contig$length))
