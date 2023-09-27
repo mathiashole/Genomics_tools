@@ -63,7 +63,7 @@ sub process_fasta_file {
 
 sub main {
     my @fasta_files = @ARGV;
-    print "HOLA";
+    
     # Verificar si se proporcionaron archivos FASTA
     if (@fasta_files == 0) {
         die("Uso: $0 <archivo1.fasta> <archivo2.fasta> ...\n");
