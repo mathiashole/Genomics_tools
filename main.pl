@@ -91,26 +91,26 @@ sub calculate_stats_for_files {
     my @args = @_;
     my @fasta_files;
 
-    while (@args) {
-        my $arg = shift @args;
-        push @fasta_files, $arg;
-    }
+    # while (@args) {
+    #     my $arg = shift @args;
+    #     push @fasta_files, $arg;
+    # }
 
-    foreach my $fasta_file (@fasta_files) {
-        # Verify that the file exists
-        die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file;
+    # foreach my $fasta_file (@fasta_files) {
+    #     # Verify that the file exists
+    #     die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file;
 
-        # Verify that the file has a .fasta or .fa extension
-        my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/);
-        die "Error: File '$fasta_file' is not a FASTA file.\n" unless $file_ext =~ /\.fasta$|\.fa$/i;
+    #     # Verify that the file has a .fasta or .fa extension
+    #     my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/);
+    #     die "Error: File '$fasta_file' is not a FASTA file.\n" unless $file_ext =~ /\.fasta$|\.fa$/i;
 
         # Construct the path to the perl script file
         my $script_n50 = "$Bin/GStat.pl";
-
+        #print $fasta_file;
         # Command in perl to be executed
-        my $comando_n50 = "perl $script_n50 \"$fasta_file\"";
+        my $comando_n50 = "perl $script_n50 @_";
 
         # Run the perl command
         system($comando_n50);
-    }
+    # }
 }
