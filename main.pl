@@ -5,10 +5,10 @@ use FindBin qw($Bin);
 use File::Basename;
 use Getopt::Long;
 
-$stat_flag = 0;
-$length_flag = 0;
-$help_flag = 0;
-$version_flag = 0;
+my $stat_flag = 0;
+my $length_flag = 0;
+my $help_flag = 0;
+my $version_flag = 0;
 
 GetOptions(
     "stat" => \$stat_flag,
