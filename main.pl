@@ -3,7 +3,19 @@
 use strict;
 use FindBin qw($Bin);
 use File::Basename;
+use Getopt::Long;
 
+$stat_flag = 0;
+$length_flag = 0;
+$help_flag = 0;
+$version_flag = 0;
+
+GetOptions(
+    "stat" => \$stat_flag,
+    "length" => \$length_flag,
+    "help" => \$help_flag,
+    "version" => \$version_flag
+);
 
 # Function to show help
 sub show_help {
@@ -31,17 +43,17 @@ sub show_version {
 # Handling command line arguments
 if (scalar(@ARGV) == 0) {
     show_help();
-} elsif ($ARGV[0] eq '-h' || $ARGV[0] eq '--help') {
+} elsif ($help_flag) {
     show_help();
-} elsif ($ARGV[0] eq '-v' || $ARGV[0] eq '--version') {
+} elsif ($version_flag) {
     show_version();
-} elsif ($ARGV[0] eq '-l' || $ARGV[0] eq '--length') {
+} elsif ($length_flag) {
     
     # Verify that a second argument is supplied
-    die "Error: Missing FASTA file. Usage: perl main.pl -l <fasta_file>\n" unless @ARGV == 2;
+    die "Error: Missing FASTA file. Usage: perl main.pl -l <fasta_file>\n" unless @ARGV == 1;
 
     # Get the name of the FASTA file given as an argument
-    my $fasta_file = $ARGV[1];
+    my $fasta_file = $ARGV[0];
 
     # Verify that the file exists
     die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file; # -e chack for file existence
@@ -65,7 +77,7 @@ if (scalar(@ARGV) == 0) {
     # Run the perl command
     system($comando_length);
 
-} elsif ($ARGV[0] eq '-n50' || $ARGV[0] eq '--n50') {
+} elsif ($stat_flag) {
 
     calculate_stats_for_files(@ARGV);
 
