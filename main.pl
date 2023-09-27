@@ -23,15 +23,15 @@ sub show_help {
 Use: GStat [OPTIONS]
 
  Opciones disponibles:
-    -h, --help     Show this help.
-    -v, --version  Show the version of the program.
-    -l, --length   Show and save lengths of contigs.
-    -n50, --n50    Show N50 and L50 of genome.
+    -help, --help     Show this help.
+    -version, --version  Show the version of the program.
+    -length, --length   Show and save lengths of contigs.
+    -stat, --stat    Show N50 and L50 of genome.
     # Missing options
 
  Examples:
-    main.pl -h
-    main.pl -v
+    main.pl -help
+    main.pl -version
 HELP
 }
 
