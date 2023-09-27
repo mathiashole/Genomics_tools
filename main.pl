@@ -89,17 +89,11 @@ if (scalar(@ARGV) == 0) {
 
 sub calculate_stats_for_files {
     my @args = @_;
-
     my @fasta_files;
-    my $option;
 
     while (@args) {
         my $arg = shift @args;
-        if ($arg eq "-n50") {
-            $option = "n50";
-        } else {
-            push @fasta_files, $arg;
-        }
+        push @fasta_files, $arg;
     }
 
     foreach my $fasta_file (@fasta_files) {
