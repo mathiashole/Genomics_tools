@@ -55,17 +55,10 @@ if (scalar(@ARGV) == 0) {
     # Get the name of the FASTA file given as an argument
     my $fasta_file = $ARGV[0];
 
-    # Verify that the file exists
     die "Error: File '$fasta_file' not found.\n" unless -e $fasta_file; # -e chack for file existence
 
-    # $fasta_file path of file
-    # Verify that the file has a .fasta or .fa extension
     my ($file_name, $file_path, $file_ext) = fileparse($fasta_file, qr/\.[^.]*/); # \. = dot in file name. [^.]* = any sequence followed by a dot
     
-    # fileparse() parse the text and save it in a list of variables
-    #    $file_name = sample
-    #    $file_path = /ruta/del/archivo/fasta/
-    #    $file_ext = .fasta
     die "Error: File '$fasta_file' is not in FASTA format.\n" unless $file_ext =~ /^\.fasta|\.fa$/i;
 
     # Construct the path to the perl script file
@@ -83,7 +76,7 @@ if (scalar(@ARGV) == 0) {
 
 } else {
 
-    print "Unknown option. Use '-h' or '--help' to display help.\n";
+    print "Unknown option. Use '-help' or '--help' to display help.\n";
 
 }
 
