@@ -3,8 +3,23 @@
 use strict;
 use FindBin qw($Bin);
 
+my $fasta_file = shift;
 my @contig_data;
 my $contig;
+# START DEBUGING
+# my @fasta_files = @ARGV;
+# my @genomes_data;
+
+# if (@fasta_files == 0) {
+#     die("Uso: $0 <archivo1.fasta> <archivo2.fasta> ...\n");
+# }
+
+# foreach my $fasta_file (@fasta_files) {
+#     my $genome_data = calculate_contig_lengths_gc_at($fasta_file);
+#     push @genomes_data, $genome_data;
+# }
+#### until here
+
 
 sub calculate_contig_lengths_gc_at {
     my $fasta_file = shift;
@@ -56,7 +71,6 @@ sub calculate_at_percentage {
     return $at_percentage;
 }
 
-my $fasta_file = shift;
 my @contig_lengths = calculate_contig_lengths_gc_at("$fasta_file");
 
 # Initialize a variable to store the output
