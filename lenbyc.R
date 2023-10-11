@@ -68,8 +68,10 @@ gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
   theme(legend.position = "none")+
   labs(x = n_write , y = "GC of contig (pb)")
 
- lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
-   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
+#contig_filtered <- subset(contig, length < 100000)
+
+ lengthContig <- ggplot(contig_filtered, aes(x= length, fill= length)) + 
+   geom_histogram(binwidth = n_binwidth/100000, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
    #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
    theme(legend.position="none",
          plot.title = element_text(size=11), 
