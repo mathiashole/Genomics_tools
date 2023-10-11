@@ -112,7 +112,7 @@ sub main {
 
 
 sub calculate_N_L {
-    my @sorted_lengths = @_;
+    my @sorted_lengths = sort { $b <=> $a } @_;
     my $total_length = 0;
     foreach my $length (@sorted_lengths) {
         $total_length += $length;
