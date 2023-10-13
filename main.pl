@@ -5,11 +5,13 @@ use FindBin qw($Bin);
 use File::Basename;
 use Getopt::Long;
 
+# define flag
 my $stat_flag = 0;
 my $length_flag = 0;
 my $help_flag = 0;
 my $version_flag = 0;
 
+# name of flag
 GetOptions(
     "stat" => \$stat_flag,
     "length" => \$length_flag,
