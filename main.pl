@@ -50,6 +50,7 @@ if (scalar(@ARGV) == 0) {
 } elsif ($version_flag) {
     show_version();
 } elsif ($length_flag) {
+    #need other module
     
     # Verify that a second argument is supplied
     die "Error: Missing FASTA file. Usage: perl main.pl -l <fasta_file>\n" unless @ARGV == 1;
