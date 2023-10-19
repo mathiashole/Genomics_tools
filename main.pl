@@ -94,3 +94,5 @@ sub calculate_stats_for_files {
     # Run the perl command
     system($comando_n50);
 }
+
+## Scraping web, find genomes assambled !
