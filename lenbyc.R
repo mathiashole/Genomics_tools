@@ -47,17 +47,17 @@ contig <- read.table(args[1], #"output.txt
 
 n_contig <- length(contig$length)
 n_write <- paste("nº total contigs = ", n_contig)
-n_binwidth <- round(mean(contig$length))
+n_binwidth <- round(min(contig$length))
 #n_maxx <- max(contig$Contig.length)
 
-lengthContig <- ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
-  geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
-  geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
-  #geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.9), alpha = 0.6, size = 1) +  # Ajusta la posición de los puntos
-  scale_fill_brewer(palette = "Set1", name = "Tipo") +
-  theme_minimal()+
-  theme(legend.position = "none")+
-  labs(x = n_write , y = "Length of contig (pb)")
+# lengthContig <- ggplot(contig, aes(y = length, x = "variable", fill = "variable")) +
+#   geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
+#   geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
+#   #geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.9), alpha = 0.6, size = 1) +  # Ajusta la posición de los puntos
+#   scale_fill_brewer(palette = "Set1", name = "Tipo") +
+#   theme_minimal()+
+#   theme(legend.position = "none")+
+#   labs(x = n_write , y = "Length of contig (pb)")
 
 gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
   geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
@@ -68,10 +68,19 @@ gcContig <- ggplot(contig, aes(y = GC, x = "variable", fill = "variable")) +
   theme(legend.position = "none")+
   labs(x = n_write , y = "GC of contig (pb)")
 
+atContig <- ggplot(contig, aes(y = AT, x = "variable", fill = "variable")) +
+  geom_violin(position = position_dodge(width = 0.9), alpha=.4) +
+  geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
+  #geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.9), alpha = 0.6, size = 1) +  # Ajusta la posición de los puntos
+  scale_fill_brewer(palette = "Set1", name = "Tipo") +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(x = n_write , y = "AT of contig (pb)")
+
 #contig_filtered <- subset(contig, length < 100000)
 
- lengthContig <- ggplot(contig_filtered, aes(x= length, fill= length)) + 
-   geom_histogram(binwidth = n_binwidth/100000, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
+ lengthContig <- ggplot(contig, aes(x= length, fill= length)) + 
+   geom_histogram(binwidth = n_binwidth, fill="gray21", color = "gray1", alpha=0.9, position = "identity")+
    #geom_density(aes(y = ..count..*1500),adjust = 2, col = "black", fill = "gray1", alpha= 0.2)+
    theme(legend.position="none",
          plot.title = element_text(size=11), 
@@ -88,7 +97,7 @@ cat("\n\tGC distribution:\n")
 test_ks_gc <- ks.test(contig$GC, pnorm, mean(contig$GC), sd(contig$GC))
 print(test_ks_gc)
 
-gcLength<- grid.arrange(lengthContig, gcContig, nrow=1, ncol=2)
+gcLength<- grid.arrange(gcContig, atContig, lengthContig, nrow=2, ncol=2)
 
 # Save plot in file
 ggsave(filename = "contig_plot.pdf", plot = gcLength, width = 8.27, height = 8.27)
