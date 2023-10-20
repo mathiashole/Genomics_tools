@@ -104,3 +104,6 @@ ggsave(filename = "contig_plot.pdf", plot = gcLength, width = 8.27, height = 8.2
 
 # show success message on command line
 cat("\nSuccessfully saved the file", "contig_plot.pdf", "\n")
+
+## ADD ggplot_add library or patchwork to concatenate plots
+## ADD colorspace for colors of plots
