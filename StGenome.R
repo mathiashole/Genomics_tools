@@ -103,17 +103,17 @@ dir.create(output_directory, showWarnings = FALSE)
 result_file <- file.path(output_directory, "genome_statistics.csv")
 write.csv(results, file = result_file, row.names = FALSE)
 
-# Plot genome length
-genome_length_plot <- ggplot(results, aes(x = file_name, y = genome_length)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  ggtitle("Genome Length")
-save_plot(genome_length_plot, "genome_length.png", output_directory)
-
-# Plot contig length distribution
-contig_distribution_plot <- ggplot(results, aes(x = file_name, y = avg_contig_length)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  ggtitle("Average Contig Length")
-save_plot(contig_distribution_plot, "contig_distribution.png", output_directory)
+# # Plot genome length
+# genome_length_plot <- ggplot(results, aes(x = file_name, y = genome_length)) +
+#   geom_bar(stat = "identity") +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+#   ggtitle("Genome Length")
+# save_plot(genome_length_plot, "genome_length.png", output_directory)
+# 
+# # Plot contig length distribution
+# contig_distribution_plot <- ggplot(results, aes(x = file_name, y = avg_contig_length)) +
+#   geom_bar(stat = "identity") +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+#   ggtitle("Average Contig Length")
+# save_plot(contig_distribution_plot, "contig_distribution.png", output_directory)
 
